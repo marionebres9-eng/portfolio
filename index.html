@@ -19,7 +19,7 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
 
-        /* --- Refined Navigation --- */
+        /* --- Navigation --- */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 0.8rem 8%; 
             display: flex; justify-content: space-between; align-items: center; 
@@ -31,21 +31,8 @@
             display: flex; list-style: none; background: rgba(255, 255, 255, 0.05); 
             padding: 0.3rem 1rem; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.1); gap: 0.5rem; 
         }
-        .nav-links li { position: relative; }
-        .nav-links a { 
-            text-decoration: none; color: var(--text-dim); font-size: 1.1rem; 
-            padding: 0.6rem; display: flex; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 1.1rem; padding: 0.6rem; display: flex; transition: 0.3s; }
         .nav-links a:hover { color: var(--primary-color); transform: scale(1.15); }
-
-        /* --- Tooltip --- */
-        .nav-links li::after {
-            content: attr(data-tooltip); position: absolute; bottom: -35px; left: 50%;
-            transform: translateX(-50%); background: var(--primary-color); color: white;
-            padding: 3px 8px; font-size: 0.7rem; border-radius: 4px; opacity: 0;
-            pointer-events: none; transition: all 0.2s ease; white-space: nowrap;
-        }
-        .nav-links li:hover::after { opacity: 1; bottom: -28px; }
 
         /* --- Layout --- */
         section { padding: 100px 10% 60px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
@@ -57,25 +44,20 @@
             box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3); overflow: hidden; 
         }
         .profile-img-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .hero h1 { 
-            font-size: clamp(2.2rem, 7vw, 3.2rem); margin-bottom: 1rem; 
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-        }
-        .hero p { font-size: 1rem; color: var(--text-dim); max-width: 600px; }
+        .hero h1 { font-size: clamp(2.2rem, 7vw, 3.2rem); margin-bottom: 1rem; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         h2 { font-size: 2rem; margin-bottom: 2.5rem; text-align: center; }
         .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
         
         .display-card { 
             background: var(--card-bg); padding: 12px; border-radius: 16px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s;
         }
         .display-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
         .display-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; display: block; margin-bottom: 1rem; }
 
         /* --- Resume Card --- */
-        .resume-card { cursor: pointer; transition: 0.3s; }
+        .resume-card { cursor: pointer; text-align: center; padding: 4rem 2rem; max-width: 600px; margin: 0 auto; }
         .resume-card:hover { background: rgba(99, 102, 241, 0.1); }
 
         /* --- Modal Styles --- */
@@ -86,35 +68,24 @@
         }
         .modal-content {
             position: relative; background: #1e293b; margin: 2% auto;
-            width: 90%; max-width: 850px; height: 85vh; border-radius: 20px;
+            width: 90%; max-width: 600px; height: 85vh; border-radius: 20px;
             display: flex; flex-direction: column; border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        .close-modal {
-            position: absolute; top: -40px; right: 0; color: #fff;
-            font-size: 30px; cursor: pointer;
-        }
+        .close-modal { position: absolute; top: -45px; right: 0; color: #fff; font-size: 35px; cursor: pointer; }
+        
+        /* Image Preview Area */
         .preview-area { 
-            flex-grow: 1; display: flex; flex-direction: column; 
-            background: #f1f5f9; margin: 15px; border-radius: 12px; overflow: hidden; 
+            flex-grow: 1; overflow-y: auto; padding: 20px; 
+            scrollbar-width: thin; scrollbar-color: var(--primary-color) #1e293b;
         }
-        .preview-header { 
-            padding: 15px; background: #fff; border-bottom: 1px solid #e2e8f0;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .preview-body { flex-grow: 1; position: relative; }
-        .preview-body iframe { width: 100%; height: 100%; border: none; }
-        .fallback-msg {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; color: #475569; z-index: -1;
-        }
-        .modal-footer { padding: 20px; text-align: center; }
+        .resume-preview-img { width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-        footer { text-align: center; padding: 2rem; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); }
+        .modal-footer { padding: 20px; text-align: center; background: rgba(15, 23, 42, 0.5); border-radius: 0 0 20px 20px; }
+
+        footer { text-align: center; padding: 2rem; color: var(--text-dim); font-size: 0.8rem; }
 
         @media (max-width: 768px) {
-            nav { padding: 0.8rem 5%; }
-            .modal-content { height: 70vh; margin-top: 20%; }
+            .modal-content { height: 80vh; margin-top: 15%; }
         }
     </style>
 </head>
@@ -123,77 +94,27 @@
     <nav>
         <div class="logo">PORTFOLIO</div>
         <ul class="nav-links">
-            <li data-tooltip="Home"><a href="#home"><i class="fa-solid fa-house"></i></a></li>
-            <li data-tooltip="About"><a href="#about"><i class="fa-solid fa-user"></i></a></li>
-            <li data-tooltip="Achievements"><a href="#achievements"><i class="fa-solid fa-trophy"></i></a></li>
-            <li data-tooltip="Projects"><a href="#projects"><i class="fa-solid fa-briefcase"></i></a></li>
-            <li data-tooltip="Resume"><a href="#resume"><i class="fa-solid fa-file-pdf"></i></a></li>
+            <li><a href="#home"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="#about"><i class="fa-solid fa-user"></i></a></li>
+            <li><a href="#achievements"><i class="fa-solid fa-trophy"></i></a></li>
+            <li><a href="#projects"><i class="fa-solid fa-briefcase"></i></a></li>
+            <li><a href="#resume"><i class="fa-solid fa-file-pdf"></i></a></li>
         </ul>
     </nav>
 
     <section id="home" class="hero">
-        <div class="profile-img-container">
-            <img src="e.jpg" alt="Profile Image">
-        </div>
+        <div class="profile-img-container"><img src="e.jpg" alt="Profile"></div>
         <h1>Programmer</h1>
-        <p>Building high-performance digital experiences with a focus on clean code and elegant design.</p>
-    </section>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="display-card" style="padding: 2.5rem; max-width: 800px; margin: 0 auto;">
-            <p>I am <strong>Mario Nebres Jr.</strong>, a passionate creator dedicated to solving complex problems through technology. I focus on creating user-centric applications that are both functional and visually stunning.</p>
-        </div>
-    </section>
-
-    <section id="achievements">
-        <h2>Achievements</h2>
-        <div class="image-grid">
-            <div class="display-card">
-                <img src="cert1.jpg" alt="Certification">
-                <h3 style="color: var(--primary-color); font-size: 1rem;">Certification A</h3>
-                <p style="color: var(--text-dim); font-size: 0.85rem;">Full-stack development excellence.</p>
-            </div>
-            <div class="display-card">
-                <img src="cert2.jpg" alt="Hackathon">
-                <h3 style="color: var(--primary-color); font-size: 1rem;">Hackathon Winner</h3>
-                <p style="color: var(--text-dim); font-size: 0.85rem;">2025 Regional Hackathon Winner.</p>
-            </div>
-            <div class="display-card">
-                <img src="cert3.jpg" alt="Cloud Architect">
-                <h3 style="color: var(--primary-color); font-size: 1rem;">Cloud Architect</h3>
-                <p style="color: var(--text-dim); font-size: 0.85rem;">Certified Professional architect.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>Latest Projects</h2>
-        <div class="image-grid">
-            <div class="display-card">
-                <img src="project1.jpg" alt="Check-U-Heart">
-                <h3 style="color: var(--primary-color); font-size: 1.1rem; margin-bottom: 0.5rem;">Check-U-Heart Vendo</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem;">A kiosk style project integrating a BP device with a coin slot mechanism.</p>
-            </div>
-            <div class="display-card">
-                <img src="project2.jpg" alt="Project Beta">
-                <h3 style="color: var(--primary-color); font-size: 1.1rem; margin-bottom: 0.5rem;">Project Beta</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem;">Mobile-first e-commerce solution with optimized performance.</p>
-            </div>
-            <div class="display-card">
-                <img src="project3.jpg" alt="Project Gamma">
-                <h3 style="color: var(--primary-color); font-size: 1.1rem; margin-bottom: 0.5rem;">Project Gamma</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem;">AI-powered task management application.</p>
-            </div>
-        </div>
+        <p>Mario Nebres Jr. | Building clean, efficient code solutions.</p>
     </section>
 
     <section id="resume">
         <h2>Resume</h2>
-        <div class="display-card resume-card" id="resumeCard" style="text-align: center; padding: 4rem 2rem; max-width: 600px; margin: 0 auto;">
-            <i class="fa-solid fa-file-pdf" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
-            <p style="margin-bottom: 2rem; color: var(--text-dim);">Ready for the next challenge? Click this box to <strong>preview</strong> or download my professional history.</p>
-            <span style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Click to Open Preview</span>
+        <div class="display-card resume-card" id="resumeCard">
+            <i class="fa-solid fa-file-pdf" style="font-size: 3.5rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3 style="margin-bottom: 1rem;">Professional CV</h3>
+            <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Click anywhere on this box to preview my resume.</p>
+            <span style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem;">VIEW PREVIEW</span>
         </div>
     </section>
 
@@ -202,57 +123,38 @@
             <span class="close-modal" id="closeModal">&times;</span>
             
             <div class="preview-area">
-                <div class="preview-header">
-                    <span style="color: #475569; font-weight: 600;"><i class="fa-solid fa-file-lines"></i> resume.pdf</span>
-                    <a href="resume.pdf" target="_blank" style="text-decoration: none; font-size: 0.8rem; color: var(--primary-color); font-weight: 600;">
-                        <i class="fa-solid fa-up-right-from-square"></i> Open Fullscreen
-                    </a>
-                </div>
-                <div class="preview-body">
-                    <div class="fallback-msg">
-                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; margin-bottom: 10px;"></i>
-                        <p>Loading Preview...</p>
-                        <p style="font-size: 0.7rem;">(If it doesn't load, use the fullscreen button above)</p>
-                    </div>
-                    <iframe id="pdfFrame" src=""></iframe>
-                </div>
+                <img src="resume-preview.jpg" alt="Resume Preview" class="resume-preview-img">
             </div>
 
             <div class="modal-footer">
-                <a href="resume.pdf" download style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: white; background: var(--primary-color); padding: 0.8rem 2.5rem; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);">
-                    <i class="fa-solid fa-download"></i> Confirm Download
+                <a href="resume.pdf" download="Mario_Nebres_Resume.pdf" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: white; background: var(--primary-color); padding: 0.8rem 2.5rem; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);">
+                    <i class="fa-solid fa-download"></i> Download PDF
                 </a>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Portfolio Design. All Rights Reserved.</p>
-    </footer>
+    <footer><p>&copy; 2026 Portfolio Design</p></footer>
 
     <script>
         const modal = document.getElementById("resumeModal");
         const resumeCard = document.getElementById("resumeCard");
         const closeBtn = document.getElementById("closeModal");
-        const pdfFrame = document.getElementById("pdfFrame");
 
-        resumeCard.onclick = function() {
+        resumeCard.onclick = () => {
             modal.style.display = "block";
-            document.body.style.overflow = "hidden"; // Disable scroll
-            pdfFrame.src = "resume.pdf"; // Load PDF only when needed
+            document.body.style.overflow = "hidden";
         }
 
-        closeBtn.onclick = function() {
+        closeBtn.onclick = () => {
             modal.style.display = "none";
             document.body.style.overflow = "auto";
-            pdfFrame.src = ""; // Stop loading on close
         }
 
-        window.onclick = function(event) {
+        window.onclick = (event) => {
             if (event.target == modal) {
                 modal.style.display = "none";
                 document.body.style.overflow = "auto";
-                pdfFrame.src = "";
             }
         }
     </script>
