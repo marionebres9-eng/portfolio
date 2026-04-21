@@ -71,8 +71,8 @@
             transition: transform 0.3s ease; 
             display: flex; 
             flex-direction: column; 
-            align-items: center; /* Centers items horizontally */
-            text-align: center;   /* Centers text */
+            align-items: center;
+            text-align: center;
             height: 100%; 
         }
         .display-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
@@ -86,7 +86,7 @@
             gap: 2rem; 
             padding: 15px 0 30px; 
             scroll-snap-type: x mandatory; 
-            scrollbar-width: none; /* Hide default scrollbar for cleaner look */
+            scrollbar-width: none;
         }
         .scroll-container::-webkit-scrollbar { display: none; }
         .scroll-item { flex: 0 0 320px; scroll-snap-align: center; }
@@ -247,12 +247,12 @@
 
     <div class="chat-bubble" onclick="toggleChat()"><i class="fa-solid fa-comment-dots"></i></div>
     <div class="chat-window" id="chatWindow">
-        <div class="chat-header"><span>Mario's Assistant</span><i class="fa-solid fa-xmark" onclick="toggleChat()" style="cursor:pointer"></i></div>
+        <div class="chat-header"><span>Portfolio Assistant</span><i class="fa-solid fa-xmark" onclick="toggleChat()" style="cursor:pointer"></i></div>
         <div class="chat-messages" id="chatMessages">
-            <div class="msg bot-msg">Hi! Ask me about Mario's name or his school.</div>
+            <div class="msg bot-msg">Greetings! How can I assist you in exploring Mario's professional portfolio today?</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Type here..." onkeypress="handleKey(event)">
+            <input type="text" id="chatInput" placeholder="Ask about skills, projects, or background..." onkeypress="handleKey(event)">
             <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
@@ -278,22 +278,65 @@
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
         function handleKey(e) { if (e.key === 'Enter') sendMessage(); }
+        
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const container = document.getElementById('chatMessages');
             const text = input.value.trim().toLowerCase();
             if (!text) return;
+
+            // Display User Message
             const userDiv = document.createElement('div');
             userDiv.className = 'msg user-msg';
             userDiv.textContent = input.value;
             container.appendChild(userDiv);
             input.value = "";
+
             const botDiv = document.createElement('div');
             botDiv.className = 'msg bot-msg';
-            if (text.includes("name")) { botDiv.textContent = "I am Mario Nebres."; } 
-            else if (text.includes("school") || text.includes("university")) { botDiv.textContent = "(CPSU) Central Philippine State University"; } 
-            else { botDiv.textContent = "I'm not sure. Try asking for my name or school!"; }
-            setTimeout(() => { container.appendChild(botDiv); container.scrollTop = container.scrollHeight; }, 400);
+
+            // --- Professional Response Logic ---
+
+            // 1. Personal Details / About
+            if (text.includes("yourself") || text.includes("who are you") || text.includes("about")) {
+                botDiv.textContent = "Mario is a passionate developer and creator dedicated to solving complex problems. He specializes in bridging the gap between hardware and software to build functional, high-impact systems.";
+            }
+            // 2. Age & Birthday (Born Feb 18, 2006)
+            else if (text.includes("age") || text.includes("how old") || text.includes("birthday") || text.includes("born")) {
+                botDiv.textContent = "Mario was born on February 18, 2006, and is currently 20 years old.";
+            }
+            // 3. Name
+            else if (text.includes("name")) {
+                botDiv.textContent = "You are currently viewing the professional portfolio of Mario Nebres Jr.";
+            }
+            // 4. Education
+            else if (text.includes("school") || text.includes("university") || text.includes("education") || text.includes("study")) {
+                botDiv.textContent = "Mario is affiliated with Central Philippine State University (CPSU).";
+            }
+            // 5. Skills & Expertise
+            else if (text.includes("skill") || text.includes("expertise") || text.includes("what can you do") || text.includes("tech stack")) {
+                botDiv.textContent = "Mario's core expertise lies in Java programming, Raspberry Pi development, and hardware integration. He also holds certifications in CISCO Networking and Digital Security.";
+            }
+            // 6. Project Specifics
+            else if (text.includes("project") || text.includes("work") || text.includes("check-u-heart") || text.includes("vendo") || text.includes("figma") || text.includes("travel")) {
+                if (text.includes("check-u-heart") || text.includes("vendo")) {
+                    botDiv.textContent = "The 'Check-U-Heart Vendo' is one of Mario's flagship projects. It is a sophisticated, Java-based blood pressure vending machine system that showcases his ability to integrate complex software with physical hardware components.";
+                } else if (text.includes("travel")) {
+                    botDiv.textContent = "The 'Travel Express' project is a high-fidelity travel booking application prototype designed and developed within Figma, focusing on user experience and interface design.";
+                } else {
+                    botDiv.textContent = "Mario has completed several notable projects, including the Check-U-Heart Vendo hardware system and multiple UI/UX design portfolios in Figma and Canva. You can view the full list in the 'Latest Projects' section.";
+                }
+            }
+            // Default Catch-all
+            else {
+                botDiv.textContent = "I'm here to help! Feel free to ask about Mario's technical skills, specific projects, academic background, or his personal mission in the tech industry.";
+            }
+
+            // Scroll to bottom and append
+            setTimeout(() => { 
+                container.appendChild(botDiv); 
+                container.scrollTop = container.scrollHeight; 
+            }, 400);
         }
 
         // SCROLL INDICATOR LOGIC
@@ -330,4 +373,4 @@
         window.onclick = (e) => { if (e.target == modal) closeModal(); }
     </script>
 </body>
-                                                </html>
+</html>
